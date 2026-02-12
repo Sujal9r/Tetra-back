@@ -1,0 +1,11 @@
+{
+  "name": "tetra-back",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm --prefix backend run build",
+    "start": "npm --prefix backend start",
+    "dev": "npm --prefix backend run dev",
+    "test": "npm --prefix backend test"
+  }
+}
