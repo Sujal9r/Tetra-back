@@ -1,0 +1,40 @@
+import express from "express";
+import { protect } from "../middlewares/authMiddleware.js";
+import {
+  authorizePermissions,
+  authorizeAnyPermissions,
+} from "../middlewares/permissionMiddleware.js";
+import { PERMISSIONS } from "../utils/roles.js";
+import {
+  clockIn,
+  clockOut,
+  getAttendancePanel,
+} from "../controllers/attendanceController.js";
+
+const router = express.Router();
+
+router.post(
+  "/attendance/clock-in",
+  protect,
+  authorizePermissions(PERMISSIONS.ATTENDANCE_CLOCK),
+  clockIn
+);
+
+router.post(
+  "/attendance/clock-out",
+  protect,
+  authorizePermissions(PERMISSIONS.ATTENDANCE_CLOCK),
+  clockOut
+);
+
+router.get(
+  "/attendance/panel",
+  protect,
+  authorizeAnyPermissions(
+    PERMISSIONS.ATTENDANCE_PANEL_VIEW,
+    PERMISSIONS.VIEW_ADMIN_ATTENDANCE,
+  ),
+  getAttendancePanel
+);
+
+export default router;
